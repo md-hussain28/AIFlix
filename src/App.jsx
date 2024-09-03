@@ -1,10 +1,9 @@
 import React from 'react'
+import Body from './Body';
 
 const App = () => {
   return (
-    <div className='bg-gray-600 min-h-screen'>
-      
-    </div>
+    <Body/>
   )
 }
 
