@@ -1,8 +1,9 @@
 import React from 'react'
-
+import Header from '../Header'
 const Browse = () => {
   return (
-    <div>
+    <div className='bg-cyan-300 h-screen'> 
+      <Header/>
        Browse
     </div>
   )
