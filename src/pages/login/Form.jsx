@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import Validate from './Validate';
+import Validate from '../../utils/Validate';
 
 const Label=({val,forH,name})=>{
    //console.log(val,forH,name);
@@ -109,7 +109,7 @@ const Form = () => {
               {type ? "Login" : "Sign Up"}
             </button>
           </form>
-          <p className='text-sm text-red-700 text-center'>{err}</p>
+          <p className='text-sm font-bold text-red-700 text-center'>{err}</p>
           <div className="text-center mt-4 text-gray-500">
             <p>{type ? "Don't Have an Account?" : "Already Registered?"}</p>
             <button
