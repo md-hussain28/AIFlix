@@ -18,25 +18,25 @@ const Label = ({ val, forH, name }) => {
   )
 }
 
-const signUp = (email, password, setErr) => {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up
-      const user = userCredential.user;
-      if (user) {
-        setErr("You are registered");
-        console.log(user);
-        return true;
-      }
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      setErr(`Error: ${errorCode}`);
-      console.error("Sign-up error:", errorMessage);
-      return false;
-    });
+const signUp = async (email, password, setErr) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    if (user) {
+      setErr("You are registered");
+      console.log(user);
+      return user; // Return the user object
+    }
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErr(`Error: ${errorCode}`);
+    console.error("Sign-up error:", errorMessage);
+    return null; // Return null or handle as needed
+  }
 };
+
+
 const signIn = (email, password, setErr) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -79,9 +79,10 @@ const Form = () => {
     }
 
     if (type) {
-      signIn(email, password, setErr);
+      const user=signIn(email, password, setErr);
+
       navigate("/browse")
-      console.log("Signed IN navigated");
+      console.log("Signed IN navigated :", user);
 
     } else {
       if (password != password2) {
