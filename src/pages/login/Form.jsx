@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import Validate from '../../utils/Validate';
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from 'firebase/auth';
+import {auth} from '../../utils/firbase'
 
 const Label=({val,forH,name})=>{
    //console.log(val,forH,name);
@@ -15,6 +17,42 @@ const Label=({val,forH,name})=>{
    )
 }
 
+const signUp = (email, password, setErr) => {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed up
+      const user = userCredential.user;
+      if (user) {
+        setErr("You are registered");
+        console.log(user);
+        return true;
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      setErr(`Error: ${errorCode}`);
+      console.error("Sign-up error:", errorMessage);
+      return false;
+    });
+};
+const signIn=(email, password, setErr)=>{
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    setErr("You are logged in")
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErr("Error:"+errorMessage)
+  });
+}
+
+
+
+
 
 const Form = () => {
     const [name, setName] = useState("");
@@ -26,14 +64,31 @@ const Form = () => {
     console.log("rendered");
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(Validate(email,password)==""){
-            setErr("You Are In");
+        const msg=Validate(email,password);
+        if(msg){
+          setErr(msg);
+          setEmail("");
+          setName("");
+          setPassword("");
+          setPassword2("");
+          return;
+        }
+
+        if(type){
+            signIn(email, password, setErr);
         }else{
-            setErr(Validate(email,password));
+            if(password!=password2){
+              setErr("Passwords did not match");
+            }
+            const done=signUp(email,password,setErr)
+            if(done){setType(true)}
+           
         }
         setEmail("");
         setName("");
         setPassword("");
+        setPassword2("");
+        
     }
 
     return (
