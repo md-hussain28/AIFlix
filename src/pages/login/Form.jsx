@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Validate from '../../utils/Validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../utils/firbase'
-import { useNavigate } from 'react-router-dom';
 
 const Label = ({ val, forH, name }) => {
   //console.log(val,forH,name);
@@ -25,6 +24,7 @@ const signUp = async (email, password, setErr) => {
     if (user) {
       setErr("You are registered");
       console.log(user);
+
       return user; // Return the user object
     }
   } catch (error) {
@@ -37,24 +37,15 @@ const signUp = async (email, password, setErr) => {
 };
 
 
-const signIn = (email, password, setErr) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      setErr("You are logged in")
-
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      setErr("Error:" + errorMessage)
-
-    });
-}
-
-
-
+const signIn = async (email, password, setErr) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    setErr("You are logged in");
+  } catch (error) {
+    setErr("Error: " + error.message);
+  }
+};
 
 
 const Form = () => {
@@ -64,7 +55,7 @@ const Form = () => {
   const [password2, setPassword2] = useState("");
   const [type, setType] = useState(true)
   const [err, setErr] = useState("");
-  const navigate = useNavigate();
+
   console.log("rendered");
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,9 +70,7 @@ const Form = () => {
     }
 
     if (type) {
-      const user=signIn(email, password, setErr);
-
-      navigate("/browse")
+      const user = signIn(email, password, setErr);
       console.log("Signed IN navigated :", user);
 
     } else {
@@ -89,7 +78,7 @@ const Form = () => {
         setErr("Passwords did not match"); return;
       }
       const done = signUp(email, password, setErr)
-      if (done) { navigate("/"); setType(true) }
+      if (done) { setType(true) }
 
     }
     setEmail("");
