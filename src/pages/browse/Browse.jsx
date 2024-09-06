@@ -1,6 +1,6 @@
 import React from 'react'
 import useNowplaying from '../../hooks/useNowplaying'
-import BackgroundVideo from './BackgroundVideo';
+import Background from './Background';
 
 const MovieCard = ( movie,key ) => {
   //console.log("Moviecar ->",movie)
@@ -38,8 +38,9 @@ const Browse = () => {
   }
 
   return (
-    <><BackgroundVideo mov={movies}/>
-    <div className="bg-cyan-300 min-h-screen p-10">
+    <>
+     <Background mov={movies}/>
+     <div className="bg-cyan-300 min-h-screen p-10">
       
     <h1 className="text-center text-3xl font-bold mb-10 text-gray-800">
       Now Playing
