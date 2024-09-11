@@ -2,6 +2,7 @@ import React from 'react'
 import useGetmovielist from '../../hooks/useGetmovielist'
 import Background from './Background';
 import List from './List';
+import LoadingPage from '../LoadingPage';
 
 
 const Browse = () => {
@@ -16,7 +17,7 @@ const Browse = () => {
     return <div className="text-center text-2xl font-bold text-red-600">Error: {error.message}</div>;
   }
   if(!movies){
-     return <div className='min-h-screen bg-zinc-600'> <h1 className='text-6xl text-black'>Loading</h1></div>
+     return <LoadingPage/>
   }
  
 

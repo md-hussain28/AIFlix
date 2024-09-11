@@ -8,6 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { addUser, removeUser } from './utils/userSlice'
 import Header from './pages/Header.jsx'
+import Details from './pages/movie/Details.jsx'
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const Body = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/browse" element={<Browse />} />
+        <Route path="/browse/:movieId" element={<Details />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
     </>

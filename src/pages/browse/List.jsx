@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useGetmovielist from '../../hooks/useGetmovielist';
+import { Link } from 'react-router-dom';
 
 const List = ({ mov }) => {
   const { movies, error } = useGetmovielist(mov.key);
@@ -9,6 +10,11 @@ const List = ({ mov }) => {
   const handleImageLoad = (id) => {
     setLoadedImages((prev) => ({ ...prev, [id]: true }));
   };
+
+  const handleClick=(e)=>{
+     console.log(e.target.alt);
+     
+  }
 
   if (error) {
     return (
@@ -26,12 +32,13 @@ const List = ({ mov }) => {
   }
 
   return (
-    <div className="p-6 bg-gray-800">
+    <div className="p-6 bg-gray-800" >
       <h1 className="text-3xl font-bold text-white mb-4">{mov.head}</h1>
       <div className="relative overflow-x-auto">
         <div className="flex space-x-4 animate-scroll">
           {movies.map((movie) => (
-            <div key={movie.id} className="w-48 flex-shrink-0 relative">
+            <Link  key={movie.id} to={`${movie.id}`}>
+            <div className="w-48 flex-shrink-0 relative" onClick={handleClick}>
               {/* Low-Resolution Placeholder */}
               <img
                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
@@ -48,6 +55,7 @@ const List = ({ mov }) => {
               {/* Movie Title */}
               <h2 className="mt-2 text-lg font-semibold text-white truncate">{movie.title}</h2>
             </div>
+            </Link>
           ))}
         </div>
       </div>

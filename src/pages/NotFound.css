@@ -1,0 +1,91 @@
+/* Background starry sky */
+.stars {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    animation: move-stars 100s linear infinite;
+  }
+  
+  @keyframes move-stars {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 10000px 5000px;
+    }
+  }
+  
+  /* Glitch effect */
+  .glitch-text {
+    position: relative;
+    color: white;
+    animation: glitch 1s infinite;
+  }
+  
+  @keyframes glitch {
+    0% {
+      clip-path: inset(0 0 0 0);
+      transform: translate(0);
+    }
+    20% {
+      clip-path: inset(10% 0 85% 0);
+      transform: translate(-20px);
+    }
+    40% {
+      clip-path: inset(30% 0 40% 0);
+      transform: translate(20px);
+    }
+    60% {
+      clip-path: inset(10% 0 50% 0);
+      transform: translate(-10px);
+    }
+    80% {
+      clip-path: inset(15% 0 85% 0);
+      transform: translate(20px);
+    }
+    100% {
+      clip-path: inset(0 0 0 0);
+      transform: translate(0);
+    }
+  }
+  
+  /* Film strip moving effect */
+  .bg-film-strip {
+    background-image: url('path-to-film-strip-image.png');
+    background-repeat: repeat-x;
+    animation: move-strip 10s linear infinite;
+  }
+  
+  @keyframes move-strip {
+    from {
+      background-position: 0;
+    }
+    to {
+      background-position: -1000px;
+    }
+  }
+  
+  /* Glitch overlay effect */
+  .glitch-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    animation: glitch-overlay 0.5s infinite;
+  }
+  
+  @keyframes glitch-overlay {
+    0% {
+      opacity: 0.2;
+      transform: translateY(-5px);
+    }
+    50% {
+      opacity: 0.4;
+      transform: translateY(5px);
+    }
+    100% {
+      opacity: 0.2;
+      transform: translateY(-5px);
+    }
+  }
+  

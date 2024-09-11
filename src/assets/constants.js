@@ -1,4 +1,4 @@
-export const LOGO="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png";
+
 export  const options = {
     method: 'GET',
     headers: {
