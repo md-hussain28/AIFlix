@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { options } from '../../assets/constants'; // Adjust import based on your project structure
+import { Link } from 'react-router-dom';
 
 const SimilarMovies = ({ id }) => {
   const [list, setList] = useState([]);
@@ -22,7 +23,7 @@ const SimilarMovies = ({ id }) => {
       }
       setLoading(false);
     };
-
+    window.scrollTo(0, 0);
     getData();
   }, [id]);
 
@@ -35,10 +36,12 @@ const SimilarMovies = ({ id }) => {
       {list.length === 0 ? (
         <p className="text-center text-gray-400">No similar movies found.</p>
       ) : (
+      
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {list.map((movie) => (
+              <Link key={movie.id} to={`/browse/${movie.id}`}>
             <div
-              key={movie.id}
+              
               className="group px-6 py-4 bg-white/10 rounded-lg flex flex-col items-center justify-center gap-2 relative after:absolute after:h-full after:bg-[#511f7d] z-20 shadow-lg after:-z-20 after:w-full after:inset-0 after:rounded-lg transition-all duration-300 hover:transition-all hover:duration-300 after:transition-all after:duration-500 after:hover:transition-all after:hover:duration-500 overflow-hidden cursor-pointer after:-translate-y-full after:hover:translate-y-0"
             >
               <img
@@ -61,8 +64,10 @@ const SimilarMovies = ({ id }) => {
                 </button>
               </div>
             </div>
+              </Link>
           ))}
         </div>
+      
       )}
     </div>
   );

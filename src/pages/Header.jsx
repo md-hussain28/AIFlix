@@ -4,6 +4,10 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../utils/firbase';
 import { removeUser } from '../utils/userSlice';
 import Logo from '../assets/logo.png'
+
+
+
+
 const Header = ({ user }) => {
   const dispatch = useDispatch();
 
@@ -19,11 +23,13 @@ const Header = ({ user }) => {
   return (
     <header className="flex justify-between items-center bg-gradient-to-b from-gray-800 to-gray-900 px-6 py-4 shadow-md h-16">
       <div className="w-32 flex items-center">
+    
         <img
           src={Logo}
           alt="Logo"
           className="h-12"
         />
+      
       </div>
       {user && (
         <button

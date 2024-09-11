@@ -11,10 +11,7 @@ const List = ({ mov }) => {
     setLoadedImages((prev) => ({ ...prev, [id]: true }));
   };
 
-  const handleClick=(e)=>{
-     console.log(e.target.alt);
-     
-  }
+
 
   if (error) {
     return (
@@ -38,7 +35,7 @@ const List = ({ mov }) => {
         <div className="flex space-x-4 animate-scroll">
           {movies.map((movie) => (
             <Link  key={movie.id} to={`${movie.id}`}>
-            <div className="w-48 flex-shrink-0 relative" onClick={handleClick}>
+            <div className="w-48 flex-shrink-0 relative" >
               {/* Low-Resolution Placeholder */}
               <img
                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}

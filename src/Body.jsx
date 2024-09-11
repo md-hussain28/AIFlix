@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { addUser, removeUser } from './utils/userSlice'
 import Header from './pages/Header.jsx'
 import Details from './pages/movie/Details.jsx'
+import Footer from './pages/Footer.jsx'
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const Body = () => {
         <Route path="/browse/:movieId" element={<Details />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
+      <Footer/>
     </>
   )
 }
