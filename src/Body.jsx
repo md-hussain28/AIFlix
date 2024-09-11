@@ -1,38 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import Login from './pages/login/Login'
-import Browse from './pages/browse/Browse'
-import Notfound from './pages/Notfound'
-import { auth } from './utils/firbase.js'
-import { onAuthStateChanged } from 'firebase/auth'
-import { useDispatch } from 'react-redux'
-import { addUser, removeUser } from './utils/userSlice'
-import Header from './pages/Header.jsx'
-import Details from './pages/movie/Details.jsx'
-import Footer from './pages/Footer.jsx'
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
+import Login from './pages/login/Login';
+import Browse from './pages/browse/Browse';
+import Notfound from './pages/Notfound';
+import { auth } from './utils/firbase.js';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { addUser, removeUser } from './utils/userSlice';
+import Header from './pages/Header.jsx';
+import Details from './pages/movie/Details.jsx';
+import Footer from './pages/Footer.jsx';
 
 const Body = () => {
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation(); // Get current location
 
   useEffect(() => {
-    const unsubscribe=onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayname } = user;
-        dispatch(addUser({ uid: uid, email: email, displayname: displayname }));
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid, email, displayName }));
         setUser(user);
-        navigate("/browse");
+
+        // Only navigate to '/browse' if the user is not already on a valid page
+        if (location.pathname === "/" || location.pathname === "/login") {
+          navigate("/browse"); // Only redirect to /browse if they're on login/root page
+        }
       } else {
         // User is signed out
         dispatch(removeUser());
-        setUser(null)
-        navigate("/")
+        setUser(null);
+
+        // Redirect to root if they're not already on root or login page
+        if (location.pathname !== "/") {
+          navigate("/"); // Redirect to login/root page
+        }
       }
     });
-    return()=>unsubscribe();
-  }, [])
 
+    return () => unsubscribe();
+  }, [location, navigate, dispatch]); // Add location as a dependency
+  
   return (
     <>
       <Header user={user} />
@@ -42,9 +52,9 @@ const Body = () => {
         <Route path="/browse/:movieId" element={<Details />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;
