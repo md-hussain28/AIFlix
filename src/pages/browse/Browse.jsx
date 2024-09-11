@@ -28,7 +28,7 @@ const Browse = () => {
       text-cyan-400 text-4xl md:text-6xl text-center'>
       Explore Movies
       </h1>
-     
+      
      {
       type.map((i,key)=>{
         return <List key={key} mov={i}/>
