@@ -24,7 +24,11 @@ const Browse = () => {
   return (
     <>
      <Background mov={movies}/>
-     <h1 className='bg-black font-serif text-cyan-400 text-4xl text-center'>Explore Movies</h1>
+     <h1 className='h-32 p-6 bg-gradient-to-b from-black via-slate-900 to-gray-800 font-serif
+      text-cyan-400 text-4xl md:text-6xl text-center'>
+      Explore Movies
+      </h1>
+     
      {
       type.map((i,key)=>{
         return <List key={key} mov={i}/>
