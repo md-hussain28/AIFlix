@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 
 const Details = () => {
   const { movieId } = useParams();
+
+  
   return (
     <div className='w-full min-h-screen bg-neutral-900'>
       <Link to="/browse" className='bg-transparent  z-40'>

@@ -7,7 +7,7 @@ import { options } from '../../assets/constants.js';
 
 const getMovie = async (id) => {
   try {
-    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options);
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?include_adult=false`, options);
     if (!res.ok) throw new Error('Failed to fetch movie');
     const data = await res.json();
     return data;
@@ -76,12 +76,13 @@ const Search = () => {
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
+                  loading="lazy"
                   className="w-full h-60 object-cover rounded-t-lg mb-4"
                 />
                 <h2 className="text-xl font-bold mb-2">{movie.title}</h2>
                 <p className="text-gray-400">{movie.overview.length > 100 ? movie.overview.substring(0, 100) + '...' : movie.overview}</p>
                 <div className="mt-4 flex justify-end">
-                  <Link to={`/movie/${movie.id}`} className="text-cyan-500 hover:underline">Read More</Link>
+                  <Link to={`/browse/${movie.id}`} className="text-cyan-500 hover:underline">Read More</Link>
                 </div>
               </div>
             ))}

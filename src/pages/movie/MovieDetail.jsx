@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { options } from '../../assets/constants';
-import './MovieDetail.css'; // Custom CSS for keyframe animations
+import './MovieDetail.css'; 
 import LoadingPage from '../LoadingPage';
 
 const MovieDetail = ({ id }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
+   
     const getData = async () => {
       try {
         const res = await fetch(
